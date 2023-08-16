@@ -81,9 +81,4 @@ diesel::table! {
 diesel::joinable!(person -> party (party_id));
 diesel::joinable!(user_login -> party (party_id));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    party,
-    person,
-    status,
-    user_login,
-);
+diesel::allow_tables_to_appear_in_same_query!(party, person, status, user_login,);

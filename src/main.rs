@@ -6,16 +6,17 @@ use std::env;
 extern crate log;
 
 use env_logger::{Builder, Target};
+mod common;
 mod config;
-mod user;
 mod schema;
+mod user;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     env_logger::init();
     dotenv().ok();
     let pool = config::get_connection_pool();
-    HttpServer::new(move|| {
+    HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(pool.clone()))
             .service(web::scope("/user").configure(user::controller::scoped_config))
